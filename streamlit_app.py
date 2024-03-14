@@ -84,11 +84,11 @@ def on_click_callback():
     st.session_state.chats[st.session_state.chat_number] = st.session_state.history
 
 def question_click(*args):
-    chat = ""
+    chat_number = ""
     for val in args:
-        question += val
+        chat_number += val
 
-    st.write(chat)
+    st.write(chat_number)
     #st.session_state.question_prompt = question
     #on_click_callback()
 

@@ -125,8 +125,7 @@ def main():
               
         st.header("Chats")
         st.button(    "New Chat",
-                      on_click = question_click,
-                      args = (first_message)
+                      on_click = new_chat,
                  )
         # create a container for each chat
         container_chats = st.container(height = 300)

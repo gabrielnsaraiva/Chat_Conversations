@@ -88,7 +88,6 @@ def chat_click(*args):
     for val in args:
         chat_number += val
     
-    st.write(chat_number)
     chat_number = int(chat_number) - 1
 
     st.session_state.chat_number = chat_number

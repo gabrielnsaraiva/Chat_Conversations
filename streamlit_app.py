@@ -150,7 +150,7 @@ def main():
                 
                 st.button(first_message,
                           on_click = question_click,
-                          args = (first_message)
+                          args = (num_chat)
                          )
                 st.divider()
                 num_chat += 1

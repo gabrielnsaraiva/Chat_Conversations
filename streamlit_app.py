@@ -129,7 +129,6 @@ def main():
                  )
         # create a container for each chat
         container_chats = st.container(height = 300)
-        """
         with container_chats:
             for chat in st.session_state.chats:
                 
@@ -146,7 +145,7 @@ def main():
                           args = (first_message)
                          )
                 st.divider()
-        """
+                
     with col2:
         
         chat_placeholder = st.container(height = 300, border = True)

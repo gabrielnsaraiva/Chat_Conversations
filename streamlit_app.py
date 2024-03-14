@@ -100,7 +100,7 @@ def new_chat():
     # create new chat
     st.session_state.history = []
     st.session_state.chats.append(st.session_state.history)
-    st.session_state.chat_number = len(st.session_state.chats)
+    st.session_state.chat_number = len(st.session_state.chats) - 1
            
 
 #======================================================================================================================================

@@ -88,7 +88,7 @@ def question_click(*args):
     for val in args:
         question += val
 
-    #st.write(chat)
+    st.write(chat)
     #st.session_state.question_prompt = question
     #on_click_callback()
 
@@ -134,7 +134,6 @@ def main():
         # create a container for each chat
         container_chats = st.container(height = 300)
         with container_chats:
-            st.write(len(st.session_state.chats))
             for chat in st.session_state.chats:
                 
                 if chat[0]["role"] == "human":

@@ -134,6 +134,7 @@ def main():
         # create a container for each chat
         container_chats = st.container(height = 300)
         with container_chats:
+            st.write(len(st.session_state.chats))
             for chat in st.session_state.chats:
                 
                 if chat[0]["role"] == "human":

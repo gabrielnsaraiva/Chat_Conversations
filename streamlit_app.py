@@ -137,6 +137,7 @@ def main():
         # create a container for each chat
         container_chats = st.container(height = 300)
         with container_chats:
+            num_chat = 1
             for chat in st.session_state.chats:
                 
                 if chat[0]["role"] == "human":
@@ -145,13 +146,14 @@ def main():
                     try:
                         first_message = chat[1]["content"]
                     except:
-                        first_message = "Sem mensagem"
+                        first_message = "New Chat " + str(num_chat)
                 
                 st.button(first_message,
                           on_click = question_click,
                           args = (first_message)
                          )
                 st.divider()
+                num_chat += 1
                 
     with col2:
         

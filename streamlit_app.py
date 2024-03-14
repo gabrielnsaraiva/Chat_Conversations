@@ -26,6 +26,11 @@ def create_index():
     return index
 #======================================================================================================================================
 def initialize_session_state():
+    
+    if "chats" not in st.session_state:
+        st.session_state.chats = []
+        st.session_state.chat_number = 0
+        
     if "history" not in st.session_state:
         st.session_state.history = []
    
@@ -50,7 +55,7 @@ def initialize_session_state():
         
     if len(st.session_state.history) == 0:
         st.session_state.history.append(
-            {"role": "ai", "content": "Faz-me uma pergunta sobre IA e o mercado de trabalho portugues"}
+            {"role": "ai", "content": "Faz-me uma pergunta sobre IA e o mercado de trabalho portugues"}    
         )
 
 def on_click_callback():
@@ -72,20 +77,24 @@ def on_click_callback():
         {"role": "ai", "content": llm_response}
     )
 
-    streamlit_feedback(
-                        feedback_type="thumbs",
-                        #optional_text_label="[Optional] Please provide an explanation",
-                        key="feedback",
-                        align="flex-end"
-                    )
+    st.session_state.chats[st.session_state.chat_number] = st.session_state.history
 
 def question_click(*args):
-    question = ""
+    chat = ""
     for val in args:
         question += val
 
-    st.session_state.question_prompt = question
-    on_click_callback()
+    st.write(chat)
+    #st.session_state.question_prompt = question
+    #on_click_callback()
+
+def new_chat():
+
+    st.session_state.chats[st.session_state.chat_number] = st.session_state.history
+    
+    st.session_state.chat_number = len(st.session_state.chats)
+    st.session_state.history = []
+        
 
 #======================================================================================================================================
 def main():
@@ -113,26 +122,26 @@ def main():
 
     # First column -> Questions
     with col1:
-        questions = [    "o que faz a Randstad?",
-                         "quantas empresas já utilizam IA em Portugal?",
-                         "quantos profissionais receiam perder o emprego devido à IA?",
-                         "quais são os setores que serão mais afetados pela inteligência artificial?",
-                         "quais as maiores preocupações dos profissionais?",
-                         "em que áreas a IA irá criar empregos?",
-                         "quantos empregos poderão vir a ser substituídos pela IA?",
-                         "quantos empregos ou profissões novos a IA vai ajudar a criar?",
-                         "quantos profissionais usam IA no seu trabalho?",
-                         "quais são as tarefas onde mais é usada IA?"
-                    ]
+              
+        st.header("Chats")
+        st.button(    "New Chat",
+                      on_click = question_click,
+                      args = (first_message)
+                 )
+        # create a container for each chat
+        container_chats = st.container(height = 300)
         
-        st.header("Questions")
-        container_questions = st.container(height = 300)
-        # create a container for each question
-        with container_questions:
-            for question in questions:
-                st.button(question,
+        with container_chats:
+            for chat in st.session_state.chats:
+
+                if chat[0]["role"] == "human":
+                    first_message = chat[0]["content"]
+                else:
+                    first_message = chat[1]["content"]
+                
+                st.button(first_message,
                           on_click = question_click,
-                          args = (question)
+                          args = (first_message)
                          )
                 st.divider()
     

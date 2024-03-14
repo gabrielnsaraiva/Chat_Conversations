@@ -94,11 +94,14 @@ def question_click(*args):
 
 def new_chat():
 
+    # save last chat
     st.session_state.chats[st.session_state.chat_number] = st.session_state.history
     
-    st.session_state.chat_number = len(st.session_state.chats)
+    # create new chat
     st.session_state.history = []
-        
+    st.session_state.chats.append(st.session_state.history)
+    st.session_state.chat_number = len(st.session_state.chats)
+           
 
 #======================================================================================================================================
 def main():

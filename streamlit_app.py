@@ -27,9 +27,7 @@ def create_index():
 #======================================================================================================================================
 def initialize_session_state():
     
-    if "chats" not in st.session_state:
-        st.session_state.chats = []
-        st.session_state.chat_number = 0
+    
         
     if "history" not in st.session_state:
         st.session_state.history = []
@@ -57,7 +55,13 @@ def initialize_session_state():
         st.session_state.history.append(
             {"role": "ai", "content": "Faz-me uma pergunta sobre IA e o mercado de trabalho portugues"}    
         )
-
+        
+    if "chats" not in st.session_state:
+        st.session_state.chats = []
+        st.session_state.chat_number = 0
+        st.session_state.chats.append(st.session_state.history)
+            
+        
 def on_click_callback():
     if st.session_state.human_prompt == None:
         human_prompt = st.session_state.question_prompt

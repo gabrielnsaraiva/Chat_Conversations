@@ -89,8 +89,6 @@ def question_click(*args):
         chat_number += val
 
     st.write(chat_number)
-    #st.session_state.question_prompt = question
-    #on_click_callback()
 
 def new_chat():
 

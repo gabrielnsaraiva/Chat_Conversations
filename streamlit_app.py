@@ -83,12 +83,16 @@ def on_click_callback():
 
     st.session_state.chats[st.session_state.chat_number] = st.session_state.history
 
-def question_click(*args):
+def chat_click(*args):
     chat_number = ""
     for val in args:
         chat_number += val
-
+    
     st.write(chat_number)
+    chat_number = int(chat_number) - 1
+
+    st.session_state.chat_number = chat_number
+    st.session_state.history = st.session_state.chats[chat_number]
 
 def new_chat():
 
@@ -147,7 +151,7 @@ def main():
                         first_message = "New Chat " + str(num_chat)
                 
                 st.button(first_message,
-                          on_click = question_click,
+                          on_click = chat_click,
                           args = (str(num_chat))
                          )
                 st.divider()

@@ -137,7 +137,10 @@ def main():
                 if chat[0]["role"] == "human":
                     first_message = chat[0]["content"]
                 else:
-                    first_message = chat[1]["content"]
+                    try:
+                        first_message = chat[1]["content"]
+                    except:
+                        first_message = "Sem mensagem"
                 
                 st.button(first_message,
                           on_click = question_click,

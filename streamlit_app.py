@@ -88,7 +88,7 @@ def question_click(*args):
     for val in args:
         question += val
 
-    st.write(chat)
+    #st.write(chat)
     #st.session_state.question_prompt = question
     #on_click_callback()
 

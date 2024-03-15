@@ -176,13 +176,15 @@ def main():
                 with cols[num_chat - 1][0]:
                     st.button(first_message,
                               on_click = chat_click,
-                              args = (str(num_chat))
+                              args = (str(num_chat)),
+                              key = "btn_chat_" + str(num_chat)
                              )
 
                 with cols[num_chat - 1][1]:
                     st.button("D",
                               on_click = drop_chat,
-                              args = (str(num_chat))
+                              args = (str(num_chat)),
+                              key = "btn_del_" + str(num_chat)
                              )
                 st.divider()
                 num_chat += 1

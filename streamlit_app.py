@@ -102,7 +102,28 @@ def new_chat():
     st.session_state.history = []
     st.session_state.chats.append(st.session_state.history)
     st.session_state.chat_number = len(st.session_state.chats) - 1
-           
+
+def drop_chat(*args):
+    
+    chat_number = ""
+    for val in args:
+        chat_number += val
+    
+    chat_number = int(chat_number) - 1
+
+    if chat_number == st.session_state.chat_number: # remove the current chat
+        st.session_state.chats.pop(st.session_state.chat_number)
+        
+        if len( st.session_state.chats) > 0: # tem mais chats available
+            st.session_state.chat_number = 0 # the chat becomes the first one
+            st.session_state.history = st.session_state.chats[0]
+        else:
+            new_chat()
+    else:
+        st.session_state.chats.pop(chat_number)
+        if chat_number < st.session_state.chat_number:
+            st.session_state.chat_number += -1
+        
 
 #======================================================================================================================================
 def main():
@@ -140,7 +161,8 @@ def main():
         with container_chats:
             num_chat = 1
             for chat in st.session_state.chats:
-                
+                col1_chat, col2_chat = st.columns([4, 1])
+
                 if chat[0]["role"] == "human":
                     first_message = chat[0]["content"]
                 else:
@@ -148,11 +170,18 @@ def main():
                         first_message = chat[1]["content"]
                     except:
                         first_message = "New Chat " + str(num_chat)
-                
-                st.button(first_message,
-                          on_click = chat_click,
-                          args = (str(num_chat))
-                         )
+
+                with col1_chat:
+                    st.button(first_message,
+                              on_click = chat_click,
+                              args = (str(num_chat))
+                             )
+
+                with col2_chat:
+                    st.button("Del",
+                              on_click = drop_chat,
+                              args = (str(num_chat))
+                             )
                 st.divider()
                 num_chat += 1
                 

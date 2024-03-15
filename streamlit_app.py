@@ -159,9 +159,11 @@ def main():
         # create a container for each chat
         container_chats = st.container(height = 300)
         with container_chats:
+            cols = []
             num_chat = 1
             for chat in st.session_state.chats:
                 col1_chat, col2_chat = st.columns([4, 1])
+                cols.append([col1_chat, col2_chat])
 
                 if chat[0]["role"] == "human":
                     first_message = chat[0]["content"]
@@ -171,14 +173,14 @@ def main():
                     except:
                         first_message = "New Chat " + str(num_chat)
 
-                with col1_chat:
+                with cols[num_chat - 1][0]:
                     st.button(first_message,
                               on_click = chat_click,
                               args = (str(num_chat))
                              )
 
-                with col2_chat:
-                    st.button("Del",
+                with cols[num_chat - 1][1]:
+                    st.button("D",
                               on_click = drop_chat,
                               args = (str(num_chat))
                              )
